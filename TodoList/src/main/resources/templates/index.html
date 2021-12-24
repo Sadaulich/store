@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Дневник</title>
+</head>
+<body>
+<h1>Дневник задач</h1>
+<div id="task-add">
+    <form name="form1" method="post" action="http://localhost:8080/">
+        <h2>Добавление задачи</h2>
+        <label>Имя задачи: </label>
+        <input type="text" name="name" value="">
+        <label>Текст задачи:</label>
+        <input type="text" name="taskText" value="">
+        <br>
+        <button id="save-book">Сохранить</button>
+        <hr>
+    </form>
+</div>
+<h2>Задачи:</h2>
+<br>
+<div id="task-list">
+    <div th:each="task : ${tasks}">
+        <p>
+            <a href="#" class="task-link" th:attr="data-id=${task.getId()}" th:text="${task.name}"></a>
+            <br>
+            <span th:text="${task.taskText}"></span>
+        <form name="formDelete" th:method="DELETE" th:action="@{/tasks/{id}(id=${task.getId()})}">
+            <button id="delete-book">Удалить задачу</button>
+        </form>
+        <!--<form name="form1" th:method="PUT" th:action="@{/tasks/{id}(id=${task.getId()})}">
+            <span class="formInfo">Обновить задачу: </span>
+            <label>Имя задачи: </label>
+            <input type="text" name="name" value="">
+            <label>Текст задачи:</label>
+            <input type="text" name="taskText" value="">
+            <button id="put-book">Обновить</button>
+            <hr>
+        </form>-->
+        </p>
+    </div>
+</div>
+</div>
+
+</body>
+</html>
